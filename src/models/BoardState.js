@@ -2,7 +2,6 @@ import { Chess } from 'chess.js';
 import tcn from '@savi2w/chess-tcn';
 
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-
 const SQUARE_CHARACTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?';
 const DROP_CHARACTERS = {
     '=': 'p',
@@ -110,30 +109,30 @@ export default class BughouseBoard {
         this.blackhand = hand; 
     }
 
-    isLegal(move) { 
+    isLegal(boardNum, move) { 
         if (move.length < 4) 
             return false; 
         
         if (move[1] === '@') {
-            if (this.board[0].turn() === 'w') 
+            if (this.board[boardNum].turn() === 'w') 
                 if (!this.whitehand.includes(move[0])) 
                     return false; 
             else if (!this.blackhand.includes(move[0])) 
                 return false; 
             
             const to = move.substring(2, 4); 
-            if (this.board[0].get(to) !== false) 
+            if (this.board[boardNum].get(to) !== false) 
                 return false; 
 
-            this.board[0].put({ type: move[0], color: this.board[0].turn() }, to);
-            const inCheck = this.board[0].inCheck();
-            this.board[0].remove(to);
+            this.board[boardNum].put({ type: move[0], color: this.board[boardNum].turn() }, to);
+            const inCheck = this.board[boardNum].inCheck();
+            this.board[boardNum].remove(to);
             return !inCheck; 
         }
         else {
             const from = move.substring(0, 2);
             const to = move.substring(2, 4); 
-            const moves = this.board[0].moves({ square: from, verbose: true });
+            const moves = this.board[boardNum].moves({ square: from, verbose: true });
             for (const i in moves) 
                 if (moves[i].to === to) 
                     return true; 
@@ -141,8 +140,8 @@ export default class BughouseBoard {
         return false; 
     }
 
-    doMove(move) {
-        applyMove(this.board[0], encode(move));
+    doMove(boardNum, move) {
+        applyMove(this.board[boardNum], encode(move));
     }
 }
 

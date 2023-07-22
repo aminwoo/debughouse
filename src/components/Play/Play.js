@@ -5,6 +5,7 @@ import Chat from '../Chat/Chat';
 import Clock from '../Clock/Clock';
 
 import './Play.css';
+import { ColorType } from '../../Types';
 
 const Play = () => {
     return (
@@ -13,20 +14,20 @@ const Play = () => {
             <div className='boards'>
                 <div className='main-board'>
                     <div className='board-player-top'>
-                    <Clock></Clock>
+                    <Clock color={ColorType.BLACK} boardId={0}></Clock>
                     </div>
-                    <Board main={true}/>
+                    <Board boardId={0}/>
                     <div className='board-player-bottom'>
-                    <Clock></Clock>
+                    <Clock color={ColorType.WHITE} boardId={0}></Clock>
                     </div>
                 </div>
                 <div className='side-board'>
                     <div className='board-player-top'>
-                    <Clock></Clock>
+                    <Clock color={ColorType.WHITE} boardId={1}></Clock>
                     </div>
-                    <Board main={false}/>
+                    <Board boardId={1}/>
                     <div className='board-player-bottom'>
-                    <Clock></Clock>
+                    <Clock color={ColorType.BLACK} boardId={1}></Clock>
                     </div>
                 </div>
             </div>

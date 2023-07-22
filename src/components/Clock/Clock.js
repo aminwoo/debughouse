@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { selectBoard } from '../../features/bughouse/gameSlice';
+
 
 import './Clock.css';
 
-export default function Clock() {
+export default function Clock({ color, boardId }) {
 
+    const board = useSelector(selectBoard);
     const [running, setRunning] = useState(true);
     const [timeLeft, setTimeLeft] = useState(1200); 
 
@@ -11,13 +15,13 @@ export default function Clock() {
         const interval = setInterval(() => {
             if (running) 
                 setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+
+            const isRunning = timeLeft > 0 && board.board[boardId].turn() === color;
+            setRunning(isRunning);
         }, 100);
-    
-        if (timeLeft <= 0) {
-            setRunning(false);
-        }
+
         return () => clearInterval(interval);
-      }, [running, timeLeft]);
+      }, [running, timeLeft, board, boardId, color]);
 
     const formatTime = (deciseconds) => {
         const seconds = Math.floor(deciseconds / 10);

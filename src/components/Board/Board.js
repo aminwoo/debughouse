@@ -1,19 +1,21 @@
-import React from 'react'; 
-import { useEffect, useRef, useState } from 'react';
-import Tile from '../Tile/Tile';
+import React, { useEffect, useRef, useState } from 'react'; 
+import { useSelector, useDispatch } from 'react-redux';
+import { selectBoard } from '../../features/bughouse/gameSlice';
 
 import './Board.css';
-import BughouseBoard from '../../models/BoardState';
+import Tile from '../Tile/Tile';
+
 import Pocket from '../Pocket/Pocket';
 import { Position } from '../../models/Position';
 
 const rows = ['1', '2', '3', '4', '5', '6', '7', '8'];
 const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
-export default function Board({ main }) {
+export default function Board({ boardId }) {
+  
+  const board = useSelector(selectBoard);
 
-  const [boardState, ] = useState(new BughouseBoard());  
-  const [flipped, setFlipped] = useState(!main);
+  const [flipped, setFlipped] = useState(boardId === 1);
   const [selectedPiece, setSelectedPiece] = useState(null);
   const [startPosition, setStartPosition] = useState(new Position(-1, -1));
   const [grabPosition, setGrabPosition] = useState(new Position(-1, -1));
@@ -36,7 +38,7 @@ export default function Board({ main }) {
       setTileSize(chessboard.getBoundingClientRect().width / 8);
       var startX, startY; 
       if (flipped) {
-        startX = Math.floor((8 * tileSize - e.clientX - chessboard.offsetLeft) / tileSize);
+        startX = Math.floor((8 * tileSize - (e.clientX - chessboard.offsetLeft)) / tileSize);
         startY = Math.abs(Math.floor((e.clientY - chessboard.offsetTop) / tileSize));
       }
       else {
@@ -73,7 +75,7 @@ export default function Board({ main }) {
     if (selectedPiece && chessboard) {
       var endX, endY; 
       if (flipped) {
-        endX = Math.floor((8 * tileSize - e.clientX - chessboard.offsetLeft) / tileSize);
+        endX = Math.floor((8 * tileSize - (e.clientX - chessboard.offsetLeft)) / tileSize);
         endY = Math.abs(Math.floor((e.clientY - chessboard.offsetTop) / tileSize));
       }
       else {
@@ -85,8 +87,8 @@ export default function Board({ main }) {
       const to = columns[endX] + rows[endY]; 
       const move = from + to; 
 
-      if (boardState.isLegal(move)) {
-        boardState.doMove(move); 
+      if (board.isLegal(boardId, move)) {
+        board.doMove(boardId, move); 
       }
 
       selectedPiece.style.top = 0;
@@ -103,27 +105,26 @@ export default function Board({ main }) {
   };
 
   useEffect(() => {
-    if (main) {
+    /*if (main) {
       document.addEventListener('keydown', handleKeyPress);
 
       return () => {
         document.removeEventListener('keydown', handleKeyPress);
       };
-    }
+    }*/
   });
 
-  
-  let board = []; 
+
+  let boardElements = []; 
   if (flipped) {
     for (let row = 0; row < columns.length; row++) {
       for (let col = columns.length - 1; col >= 0; col--) {
-        let piece = boardState.board[0].get(columns[col] + rows[row]);
-  
+        let piece = board.board[boardId].get(columns[col] + rows[row]);
         let image = false;
         if (piece !== false)
           image = `assets/images/${piece.color}_${piece.type}.png`;
   
-        board.push(<Tile row={row} col={col} image={image}> 
+        boardElements.push(<Tile row={row} col={col} image={image}> 
         {(col === 7) && <div className={'row-coordinate ' + (row % 2 !== 0 ? 'white-coordinate' : 'black-coordinate')}><span>{row + 1}</span></div>}
         {(row === 7) && <div className={'col-coordinate ' + (col % 2 !== 0 ? 'white-coordinate' : 'black-coordinate')}><span>{String.fromCharCode(97 + col)}</span></div>}
         </Tile>);
@@ -133,13 +134,12 @@ export default function Board({ main }) {
   else {
     for (let row = rows.length - 1; row >= 0; row--) {
       for (let col = 0; col < columns.length; col++) {
-        let piece = boardState.board[0].get(columns[col] + rows[row]);
-  
+        let piece = board.board[boardId].get(columns[col] + rows[row]);
         let image = false;
         if (piece !== false)
           image = `assets/images/${piece.color}_${piece.type}.png`;
   
-        board.push(<Tile row={row} col={col} image={image}> 
+        boardElements.push(<Tile row={row} col={col} image={image}> 
           {(col === 0) && <div className={'row-coordinate ' + (row % 2 === 0 ? 'white-coordinate' : 'black-coordinate')}><span>{row + 1}</span></div>}
           {(row === 0) && <div className={'col-coordinate ' + (col % 2 === 0 ? 'white-coordinate' : 'black-coordinate')}><span>{String.fromCharCode(97 + col)}</span></div>}
           </Tile>);
@@ -158,7 +158,7 @@ export default function Board({ main }) {
       <div
         id='chessboard'
         ref={chessboardRef}>
-        {board}
+        {boardElements}
       </div>
     </div>
   );
