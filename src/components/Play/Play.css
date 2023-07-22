@@ -1,0 +1,23 @@
+.play-app {
+    background-color: #282828;
+    height: 100vh;
+}
+
+.boards {
+  display: grid;
+  grid-template-columns: 1000px 100px; 
+}
+
+.controls {
+  margin-left: 25px;
+}
+
+.board-player-top {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.board-player-bottom {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

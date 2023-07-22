@@ -1,0 +1,48 @@
+.drop-display {
+    place-content: center;
+    width: 80px;
+    height: 80px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80px;
+}
+
+.quantity-placeholder {
+    position: absolute;
+    left: 62px;
+    top: 60px;
+    width: 23px;
+    height: 23px;
+    background-color: rgb(255, 55, 0);
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    border-radius: 5px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.7);
+}
+
+.quantity-text {
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+    line-height: 23px; 
+    vertical-align: middle;
+    text-align: center;
+}
+
+.drop-placeholder {
+    width: 80px;
+    height: 80px;
+}
+
+.drop-selection {
+    position: relative;
+}
+
+.drop-display:hover {
+    cursor: grab;
+}
+
+.drop-display:active {
+    cursor: grabbing;
+}

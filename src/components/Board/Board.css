@@ -1,0 +1,11 @@
+.board-component {
+    display: grid;
+    grid-template-columns: 100px 100px; 
+}
+
+#chessboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    height: 800px; 
+}

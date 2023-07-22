@@ -1,0 +1,59 @@
+.tile {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.black-tile {
+    background-color: #779556;
+}
+
+.white-tile {
+    background-color: #ebecd0;
+}
+
+.chess-piece {
+    place-content: center;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.tile .chess-piece:hover {
+    cursor: grab;
+}
+
+.tile .chess-piece:active {
+    cursor: grabbing;
+}
+
+.row-coordinate {
+    font-size: 20px; 
+    font-weight: bold;
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    user-select: none;
+}
+
+.col-coordinate {
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 70px;
+    left: 80px;
+    user-select: none;
+}
+
+.white-coordinate {
+    color: #ebecd0;
+}
+
+.black-coordinate {
+    color: #779556;
+}
