@@ -41,3 +41,4 @@ export const Bot = uciWorker('lib/stockfish.js-10.0.2/stockfish.js', [
       'go depth 10',
     ]);
 
+
