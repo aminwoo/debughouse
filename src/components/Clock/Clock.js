@@ -13,8 +13,9 @@ export default function Clock({ color, boardId }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if (running) 
-                setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+            if (running) {
+                setTimeLeft((prevTimeLeft) => Math.max(prevTimeLeft - 1, 0));
+            }
 
             const isRunning = timeLeft > 0 && board.board[boardId].turn() === color;
             setRunning(isRunning);

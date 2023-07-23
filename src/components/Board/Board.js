@@ -41,13 +41,17 @@ export default function Board({ boardId }) {
     if (selectedPiece === null && element.classList.contains('chess-piece') && chessboard) {  
       setTileSize(chessboard.getBoundingClientRect().width / 8);
       var startX, startY; 
+
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
+
       if (flipped) {
-        startX = Math.floor((8 * tileSize - (e.clientX - chessboard.offsetLeft)) / tileSize);
-        startY = Math.abs(Math.floor((e.clientY - chessboard.offsetTop) / tileSize));
+        startX = Math.floor((8 * tileSize - (e.clientX + scrollX - chessboard.offsetLeft)) / tileSize);
+        startY = Math.abs(Math.floor((e.clientY + scrollY - chessboard.offsetTop) / tileSize));
       }
       else {
-        startX = Math.floor((e.clientX - chessboard.offsetLeft) / tileSize);
-        startY = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 8 * tileSize) / tileSize));
+        startX = Math.floor((e.clientX + scrollX - chessboard.offsetLeft) / tileSize);
+        startY = Math.abs(Math.ceil((e.clientY + scrollY - chessboard.offsetTop - 8 * tileSize) / tileSize));
       }
       setStartPosition(new Position(startX, startY)); 
 
@@ -78,13 +82,19 @@ export default function Board({ boardId }) {
     const chessboard = chessboardRef.current;
     if (selectedPiece && chessboard) {
       var endX, endY; 
+
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
+
+      console.log(scrollY);
+
       if (flipped) {
-        endX = Math.floor((8 * tileSize - (e.clientX - chessboard.offsetLeft)) / tileSize);
-        endY = Math.abs(Math.floor((e.clientY - chessboard.offsetTop) / tileSize));
+        endX = Math.floor((8 * tileSize - (e.clientX + scrollX - chessboard.offsetLeft)) / tileSize);
+        endY = Math.abs(Math.floor((e.clientY + scrollY - chessboard.offsetTop) / tileSize));
       }
       else {
-        endX = Math.floor((e.clientX - chessboard.offsetLeft) / tileSize);
-        endY = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 8 * tileSize) / tileSize));
+        endX = Math.floor((e.clientX + scrollX - chessboard.offsetLeft) / tileSize);
+        endY = Math.abs(Math.ceil((e.clientY + scrollY - chessboard.offsetTop - 8 * tileSize) / tileSize));
       }
 
       const from = columns[startPosition.x] + rows[startPosition.y];
