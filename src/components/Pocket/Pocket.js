@@ -5,7 +5,7 @@ import DropDisplay from './DropDisplay';
 export default function Pocket() {
 
 
-    const [hand, setHand] = useState({'p': 3, 'n': 1, 'b': 5, 'r': 1, 'q': 1, 'P': 1, 'Q': 5}); 
+    const [hand, setHand] = useState({}); 
 
 
     const pocketPieces = []; 
