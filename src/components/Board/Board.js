@@ -90,7 +90,7 @@ export default function Board({ boardId }) {
       const from = columns[startPosition.x] + rows[startPosition.y];
       const to = columns[endX] + rows[endY]; 
       const move = from + to;
-      console.log(`${e.clientX}, ${e.clientY}, ${chessboard.offsetLeft}, ${chessboard.offsetTop}, ${tileSize}`);
+      console.log(`${e.clientX}, ${e.clientY}, ${chessboard.offsetLeft}, ${chessboard.offsetTop}, ${tileSize}, ${endX}, ${endY}`);
       console.log(move); 
       if (board.isLegal(boardId, move)) {
         board.doMove(boardId, move);
