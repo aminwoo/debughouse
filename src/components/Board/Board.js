@@ -1,6 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'; 
+import React, { useCallback, useEffect, useRef, useState } from 'react'; 
 import { useSelector, useDispatch } from 'react-redux';
 import { selectBoard } from '../../features/bughouse/gameSlice';
+
+
+import { RandomBot } from '../../engine/engine';
 
 import './Board.css';
 import Tile from '../Tile/Tile';
@@ -14,6 +17,7 @@ const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 export default function Board({ boardId }) {
   
   const board = useSelector(selectBoard);
+  const [fen, setFen] = useState(board.board[boardId].fen());
 
   const [flipped, setFlipped] = useState(boardId === 1);
   const [selectedPiece, setSelectedPiece] = useState(null);
@@ -88,7 +92,7 @@ export default function Board({ boardId }) {
       const move = from + to; 
 
       if (board.isLegal(boardId, move)) {
-        board.doMove(boardId, move); 
+        board.doMove(boardId, move);
       }
 
       selectedPiece.style.top = 0;
@@ -104,7 +108,30 @@ export default function Board({ boardId }) {
     }
   };
 
+
+  const doMove = useCallback(( board, boardId, from, to ) => {
+      board.doMove(boardId, from + to); 
+      return;
+    }, []
+  );
+
   useEffect(() => {
+
+    let ignore = false;
+    if (board.board[boardId].turn() === (boardId === 0 ? 'b' : 'w')) {
+      const fen = board.board[boardId].fen();
+      RandomBot(fen).then((move) => {
+        if (move && !ignore) {
+          board.doMove(boardId, move.from + move.to); 
+          setFen(fen);
+        }
+      });
+    }
+
+    return () => {
+      ignore = true;
+    };
+
     /*if (main) {
       document.addEventListener('keydown', handleKeyPress);
 
