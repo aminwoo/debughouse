@@ -22,9 +22,9 @@ const Play = () => {
                     </div>
                 </div>
             </div>
-            <div className='controls'>
+            {/*<div className='controls'>
              <Chat/>
-            </div>
+            </div>*/}
         </div>
     );
 }

@@ -9,7 +9,7 @@ export default function Clock({ color, boardId }) {
 
     const board = useSelector(selectBoard);
     const [running, setRunning] = useState(true);
-    const [timeLeft, setTimeLeft] = useState(1200); 
+    const [timeLeft, setTimeLeft] = useState(6000); 
 
     useEffect(() => {
         const interval = setInterval(() => {
