@@ -18,7 +18,7 @@ export default function Clock({ color, boardId }) {
 
             const isRunning = timeLeft > 0 && board.board[boardId].turn() === color;
             setRunning(isRunning);
-        }, 100);
+        }, 1000);
 
         return () => clearInterval(interval);
       }, [running, timeLeft, board, boardId, color]);
