@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectBoard } from '../../features/bughouse/gameSlice';
 
 
-import { RandomBot } from '../../engine/engine';
+import { RandomBot, Bot } from '../../engine/engine';
 
 import './Board.css';
 import Tile from '../Tile/Tile';
@@ -120,7 +120,8 @@ export default function Board({ boardId }) {
     let ignore = false;
     if (board.board[boardId].turn() === (boardId === 0 ? 'b' : 'w')) {
       const fen = board.board[boardId].fen();
-      RandomBot(fen).then((move) => {
+
+      Bot(fen).then((move) => {
         if (move && !ignore) {
           board.doMove(boardId, move.from + move.to); 
           setFen(fen);
