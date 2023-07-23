@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-chess/chessground": "^1.3.4",
     "@reduxjs/toolkit": "^1.9.5",
     "@savi2w/chess-tcn": "^1.0.0",
     "@testing-library/jest-dom": "^5.17.0",
