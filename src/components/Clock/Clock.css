@@ -17,6 +17,7 @@
     line-height: 23px; 
     vertical-align: middle;
     text-align: center;
+    font-variant-numeric: tabular-nums; 
 }
 
 .clock-background-running {
