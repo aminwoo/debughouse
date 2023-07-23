@@ -21,15 +21,6 @@ const Play = () => {
                     <Clock color={ColorType.WHITE} boardId={0}></Clock>
                     </div>
                 </div>
-                <div className='side-board'>
-                    <div className='board-player-top'>
-                    <Clock color={ColorType.WHITE} boardId={1}></Clock>
-                    </div>
-                    <Board boardId={1}/>
-                    <div className='board-player-bottom'>
-                    <Clock color={ColorType.BLACK} boardId={1}></Clock>
-                    </div>
-                </div>
             </div>
             <div className='controls'>
              <Chat/>
